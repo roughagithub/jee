@@ -15,7 +15,8 @@ import { AuthApiService } from './services/auth-api.service';
         </div>
         <nav class="nav-right">
           <span routerLink="/shop" routerLinkActive="active">Catalogue</span>
-          <span routerLink="/cart" routerLinkActive="active">Panier</span>
+          <span *ngIf="!isAdmin" routerLink="/cart" routerLinkActive="active">Panier</span>
+          <span *ngIf="isAdmin" routerLink="/admin" routerLinkActive="active">Admin</span>
           <span class="account-trigger" (click)="toggleAccountMenu()" [class.active]="accountOpen">Mon compte</span>
           <div class="account-menu" *ngIf="accountOpen">
             <div class="account-header">
@@ -53,6 +54,10 @@ export class App {
 
   get email(): string | null {
     return this.auth.getEmail();
+  }
+
+  get isAdmin(): boolean {
+    return this.auth.isAdmin();
   }
 
   toggleAccountMenu(): void {

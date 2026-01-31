@@ -4,6 +4,7 @@ import { LoginComponent } from './login.component';
 import { SignupComponent } from './signup.component';
 import { CartComponent } from './cart.component';
 import { AccountComponent } from './account.component';
+import { AdminComponent } from './admin.component';
 import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
@@ -12,6 +13,7 @@ export const routes: Routes = [
   { path: 'shop', component: ProductListComponent, canActivate: [authGuard] },
   { path: 'cart', component: CartComponent, canActivate: [authGuard] },
   { path: 'account', component: AccountComponent, canActivate: [authGuard] },
+  { path: 'admin', component: AdminComponent, canActivate: [authGuard] },
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: '**', redirectTo: 'login' }
 ];

@@ -1,5 +1,6 @@
 package com.backend.ecommerce.entity;
 
+
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -49,4 +50,7 @@ public class Product {
     @Column(name="last_updated")
     @UpdateTimestamp
     private Date lastUpdate;
+
+    @Column(name = "discount_percent")
+    private Integer discountPercent;  // 0–100, peut être null
 }

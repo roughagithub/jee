@@ -13,6 +13,7 @@ export interface Product {
   imageUrl: string;
   active: boolean;
   unitsInStock: number;
+  discountPercent?: number | null;
   dateCreated: string;
   lastUpdate: string;
 }

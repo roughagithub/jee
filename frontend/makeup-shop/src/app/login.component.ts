@@ -175,7 +175,8 @@ export class LoginComponent {
     this.authApi.login(this.form).subscribe({
       next: () => {
         this.loading = false;
-        this.router.navigate(['/shop']);
+        const target = this.authApi.isAdmin() ? '/admin' : '/shop';
+        this.router.navigate([target]);
       },
       error: err => {
         this.loading = false;

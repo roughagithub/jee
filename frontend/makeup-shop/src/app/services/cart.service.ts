@@ -43,6 +43,26 @@ export class CartService {
     this.saveToStorage(items);
   }
 
+  setQuantity(product: CartItem['product'], quantity: number): void {
+    const items = [...this.itemsSubject.value];
+    const index = items.findIndex(i => i.product.id === product.id);
+
+    if (quantity <= 0) {
+      if (index >= 0) {
+        items.splice(index, 1);
+      }
+    } else {
+      if (index >= 0) {
+        items[index] = { ...items[index], quantity };
+      } else {
+        items.push({ product, quantity });
+      }
+    }
+
+    this.itemsSubject.next(items);
+    this.saveToStorage(items);
+  }
+
   removeItem(productId: number): void {
     const items = this.itemsSubject.value.filter(i => i.product.id !== productId);
     this.itemsSubject.next(items);

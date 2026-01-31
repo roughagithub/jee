@@ -28,6 +28,9 @@ export class AuthApiService {
             if (anyRes?.email) {
               localStorage.setItem('email', anyRes.email);
             }
+            if (Array.isArray(anyRes?.roles)) {
+              localStorage.setItem('roles', JSON.stringify(anyRes.roles));
+            }
           }
         })
       );
@@ -42,6 +45,7 @@ export class AuthApiService {
       localStorage.removeItem('token');
       localStorage.removeItem('username');
       localStorage.removeItem('email');
+      localStorage.removeItem('roles');
     }
   }
 
@@ -55,5 +59,25 @@ export class AuthApiService {
 
   getEmail(): string | null {
     return this.isBrowser() ? localStorage.getItem('email') : null;
+  }
+
+  getRoles(): string[] {
+    if (!this.isBrowser()) {
+      return [];
+    }
+    const raw = localStorage.getItem('roles');
+    if (!raw) {
+      return [];
+    }
+    try {
+      const parsed = JSON.parse(raw) as string[];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }
+
+  isAdmin(): boolean {
+    return this.getRoles().includes('ROLE_ADMIN');
   }
 }
